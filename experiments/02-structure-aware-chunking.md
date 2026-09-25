@@ -86,14 +86,30 @@ this approach.
 
 ## Conclusion
 
-For this structured AWS serverless runbook, structure-aware chunking
-produced cleaner logical retrieval units than the tested fixed-size
-configuration.
+For this AWS serverless runbook, structure-aware chunking produced cleaner
+logical retrieval units than the tested fixed-size configuration.
 
-This does not establish that structure-aware chunking is universally
-better. Its effectiveness depends on the quality and consistency of
-the source document structure.
+The Lambda Throttling and S3 AccessDenied troubleshooting sections remained
+complete because the chunk boundaries followed the document's logical section
+boundaries rather than arbitrary word positions.
 
-The next experiment will evaluate semantic chunking, where boundaries
-are determined using changes in meaning rather than fixed size or
-explicit document headings.
+This experiment uses Markdown headings (`##`) as explicit structural markers.
+In a production RAG system, source documents stored in S3 may instead be PDF,
+DOCX, HTML, Markdown, or other formats. These documents may not provide
+structure in the same way.
+
+Therefore, the effectiveness of structure-aware chunking depends on whether
+the document ingestion and parsing process can reliably identify structural
+elements such as headings, sections, paragraphs, and other logical boundaries.
+
+The `##` marker used in this experiment should be considered a simplified
+representation of an already-detected document heading, rather than a
+production chunking requirement.
+
+The experiment demonstrates that when reliable document structure is
+available, using that structure can preserve logical context better than
+arbitrary fixed-size boundaries.
+
+However, structure-aware chunking is not universally better. Documents with
+inconsistent formatting, poorly detected headings, or very large sections may
+require a different or hybrid chunking strateg
